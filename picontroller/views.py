@@ -50,12 +50,12 @@ class RightWheelSpeed(FormView):
         speed = form.cleaned_data['speed']
 
         if speed > 0:
-            FORWARD_RIGHT_PIN.ChangeDutyCycle(speed)
+            FORWARD_RIGHT_PIN.ChangeDutyCycle(abs(speed))
             BACKWARD_RIGHT_PIN.ChangeDutyCycle(0)
 
         elif speed < 0:
             FORWARD_RIGHT_PIN.ChangeDutyCycle(0)
-            BACKWARD_RIGHT_PIN.ChangeDutyCycle(speed)
+            BACKWARD_RIGHT_PIN.ChangeDutyCycle(abs(speed))
 
         else:
             FORWARD_RIGHT_PIN.ChangeDutyCycle(0)
@@ -72,12 +72,12 @@ class LeftWheelSpeed(FormView):
         speed = form.cleaned_data['speed']
 
         if speed > 0:
-            FORWARD_LEFT_PIN.ChangeDutyCycle(speed)
+            FORWARD_LEFT_PIN.ChangeDutyCycle(abs(speed))
             BACKWARD_LEFT_PIN.ChangeDutyCycle(0)
 
         elif speed < 0:
             FORWARD_LEFT_PIN.ChangeDutyCycle(0)
-            BACKWARD_LEFT_PIN.ChangeDutyCycle(speed)
+            BACKWARD_LEFT_PIN.ChangeDutyCycle(abs(speed))
 
         else:
             FORWARD_LEFT_PIN.ChangeDutyCycle(0)

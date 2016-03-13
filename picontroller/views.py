@@ -22,6 +22,22 @@ BACKWARD_RIGHT_PIN.start(0)
 BACKWARD_LEFT_PIN.start(0)
 
 
+def turn_off(request):
+    FORWARD_RIGHT_PIN.stop()
+    FORWARD_LEFT_PIN.stop()
+    BACKWARD_RIGHT_PIN.stop()
+    BACKWARD_LEFT_PIN.stop()
+
+    FORWARD_RIGHT_PIN = None
+    FORWARD_LEFT_PIN = None
+    BACKWARD_RIGHT_PIN = None
+    BACKWARD_LEFT_PIN = None
+
+    pi.cleanup()
+
+    return JsonResponse({})
+
+
 class RightWheelSpeed(FormView):
     form_class = WheelSpeedForm
 

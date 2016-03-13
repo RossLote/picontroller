@@ -23,6 +23,10 @@ BACKWARD_LEFT_PIN.start(0)
 
 
 def turn_off(request):
+    global FORWARD_RIGHT_PIN
+    global FORWARD_LEFT_PIN
+    global BACKWARD_RIGHT_PIN
+    global BACKWARD_LEFT_PIN
     FORWARD_RIGHT_PIN.stop()
     FORWARD_LEFT_PIN.stop()
     BACKWARD_RIGHT_PIN.stop()

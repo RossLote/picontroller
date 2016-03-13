@@ -7,48 +7,19 @@ ALIVE = False
 
 PINS = [4, 17, 27, 22]
 
-FORWARD_RIGHT_PIN = None
-FORWARD_LEFT_PIN = None
-BACKWARD_RIGHT_PIN = None
-BACKWARD_LEFT_PIN = None
+pi.setmode(pi.BCM)
+for pin in PINS:
+    pi.setup(pin, pi.OUT)
 
+FORWARD_RIGHT_PIN = pi.PWM(PINS[0], 100)
+FORWARD_LEFT_PIN = pi.PWM(PINS[1], 100)
+BACKWARD_RIGHT_PIN = pi.PWM(PINS[2], 100)
+BACKWARD_LEFT_PIN = pi.PWM(PINS[3], 100)
 
-def turn_on(request):
-    pi.setmode(pi.BCM)
-    for pin in PINS:
-        pi.setup(pin, pi.OUT)
-
-    FORWARD_RIGHT_PIN = pi.PWM(PINS[0], 100)
-    FORWARD_LEFT_PIN = pi.PWM(PINS[1], 100)
-    BACKWARD_RIGHT_PIN = pi.PWM(PINS[2], 100)
-    BACKWARD_LEFT_PIN = pi.PWM(PINS[3], 100)
-
-    FORWARD_RIGHT_PIN.start(0)
-    FORWARD_LEFT_PIN.start(0)
-    BACKWARD_RIGHT_PIN.start(0)
-    BACKWARD_LEFT_PIN.start(0)
-
-    ALIVE = True
-
-    return JsonResponse({})
-
-
-def turn_off(request):
-    FORWARD_RIGHT_PIN.stop()
-    FORWARD_LEFT_PIN.stop()
-    BACKWARD_RIGHT_PIN.stop()
-    BACKWARD_LEFT_PIN.stop()
-
-    FORWARD_RIGHT_PIN = None
-    FORWARD_LEFT_PIN = None
-    BACKWARD_RIGHT_PIN = None
-    BACKWARD_LEFT_PIN = None
-
-    pi.cleanup()
-
-    ALIVE = False
-
-    return JsonResponse({})
+FORWARD_RIGHT_PIN.start(0)
+FORWARD_LEFT_PIN.start(0)
+BACKWARD_RIGHT_PIN.start(0)
+BACKWARD_LEFT_PIN.start(0)
 
 
 class RightWheelSpeed(FormView):

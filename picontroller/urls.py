@@ -21,8 +21,6 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', TemplateView.as_view(template_name="picontroller/index.html")),
-    url(r'^start/$', views.turn_on),
-    url(r'^stop/$', views.turn_off),
     url(r'^left/$', views.LeftWheelSpeed.as_view()),
     url(r'^right/$', views.RightWheelSpeed.as_view()),
 ]

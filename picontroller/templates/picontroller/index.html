@@ -2,21 +2,64 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>RC Controller</title>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     </head>
     <body>
-        <button id="Stop">Stop</button>
-        <form id="Left">
-            {% csrf_token %}
-            <label>Left</label>
-            <input type="number" max="100" min="-100" name="speed">
-        </form>
-        <form id="Right">
-            {% csrf_token %}
-            <label>Right</label>
-            <input type="number" max="100" min="-100" name="speed">
-        </form>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <div class="container">
+            <div class="row">
+                <div class="text-center col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div id="slider-vertical-left" style="height:200px;"></div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div id="slider-vertical-right" style="height:200px;"></div>
+                </div>
+            </div>
+        </div>
+        {% csrf_token %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+        <script>
+          $(function() {
+            $( "#slider-vertical-left" ).slider({
+              orientation: "vertical",
+              range: "min",
+              min: -100,
+              max: 100,
+              value: 0,
+              slide: function(event,ui){
+                $.post('/right/', {speed: ui.value, csrfmiddlewaretoken: '{{ csrf_token }}'});
+              },
+              stop: function(event,ui) {
+                  $('#slider-vertical-left').slider("value",0);
+                  $.post('/left/', $(this).serialize());
+              }
+            });
+            $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
+          });
+
+          $(function() {
+            $( "#slider-vertical-right" ).slider({
+              orientation: "vertical",
+              range: "min",
+              min: -100,
+              max: 100,
+              value: 0,
+              slide: function(event,ui){
+                $.post('/right/', {speed: ui.value, csrfmiddlewaretoken: '{{ csrf_token }}'});
+              },
+              stop: function(event,ui) {
+                  $('#slider-vertical-right').slider("value",0);
+                  setzoomspeed(0);
+              }
+            });
+            $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
+          });
+
+        </script>
         <script type="text/javascript">
         $('#Start').click(function(){
             $.get('/start/')

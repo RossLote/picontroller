@@ -1,6 +1,7 @@
 from RPi import GPIO as pi
 from django.views.generic import FormView
 from .forms import WheelSpeedForm
+from django.http import JsonResponse
 
 ALIVE = False
 
@@ -28,6 +29,8 @@ def turn_on(request):
     BACKWARD_LEFT_PIN.start(0)
 
     ALIVE = True
+
+    return
 
 
 def turn_off(request):

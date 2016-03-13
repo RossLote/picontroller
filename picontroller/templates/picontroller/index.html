@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>RC Controller</title>
+    </head>
+    <body>
+        <button id="Start">Start</button>
+        <button id="Stop">Stop</button>
+        <form id="Left" action="/left/" method="post">
+            {% csrf_token %}
+            <label>Left</label>
+            <input type="text" name="speed">
+        </form>
+        <form id="Right" action="/right/" method="post">
+            {% csrf_token %}
+            <label>Right</label>
+            <input type="text" name="speed">
+        </form>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script type="text/javascript">
+        $('#Start').click(function(){
+            $.get('/start/')
+        });
+        $('#Stop').click(function(){
+            $.get('/stop/')
+        });
+        </script>
+    </body>
+</html>

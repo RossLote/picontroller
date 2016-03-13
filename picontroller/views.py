@@ -82,6 +82,7 @@ class LeftWheelSpeed(FormView):
         if not ALIVE:
             return
 
+
         speed = form.cleaned_data['speed']
 
         if speed > 0:

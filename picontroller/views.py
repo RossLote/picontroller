@@ -26,8 +26,6 @@ class RightWheelSpeed(FormView):
     form_class = WheelSpeedForm
 
     def form_valid(self, form):
-        if not ALIVE:
-            return JsonResponse({'error': 'Not Alive'})
 
         speed = form.cleaned_data['speed']
 
@@ -50,8 +48,6 @@ class LeftWheelSpeed(FormView):
     form_class = WheelSpeedForm
 
     def form_valid(self, form):
-        if not ALIVE:
-            return JsonResponse({'error': 'Not Alive'})
 
         speed = form.cleaned_data['speed']
 

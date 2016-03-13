@@ -1,5 +1,6 @@
 from RPi import GPIO as pi
 from django.views.generic import FormView
+from braces.views import CsrfExemptMixin
 from .forms import WheelSpeedForm
 from django.http import JsonResponse
 
@@ -42,7 +43,7 @@ def turn_off(request):
     return JsonResponse({})
 
 
-class RightWheelSpeed(FormView):
+class RightWheelSpeed(CsrfExemptMixin, FormView):
     form_class = WheelSpeedForm
 
     def form_valid(self, form):
@@ -64,7 +65,7 @@ class RightWheelSpeed(FormView):
         return JsonResponse({})
 
 
-class LeftWheelSpeed(FormView):
+class LeftWheelSpeed(CsrfExemptMixin, FormView):
     form_class = WheelSpeedForm
 
     def form_valid(self, form):

@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
         <title>RC Controller</title>
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.3.0/nouislider.min.css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     </head>
     <body>
         <div class="container">
@@ -19,47 +19,44 @@
             </div>
         </div>
         {% csrf_token %}
-        <script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.6/hammer.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.6/hammer.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.3.0/nouislider.min.js"></script>
         <script>
-        var hammertime = new Hammer();
-          $(function() {
-            $( "#slider-vertical-left" ).slider({
-              orientation: "vertical",
-              range: "min",
-              min: -100,
-              max: 100,
-              value: 0,
-              slide: function(event,ui){
-                $.post('/left/', {speed: ui.value, csrfmiddlewaretoken: '{{ csrf_token }}'});
-              },
-              stop: function(event,ui) {
-                  $('#slider-vertical-left').slider("value",0);
-                  $.post('/left/', {speed: 0, csrfmiddlewaretoken: '{{ csrf_token }}'});
-              }
-            });
-            $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
-          });
 
-          $(function() {
-            $( "#slider-vertical-right" ).slider({
-              orientation: "vertical",
-              range: "min",
-              min: -100,
-              max: 100,
-              value: 0,
-              slide: function(event,ui){
-                $.post('/right/', {speed: ui.value, csrfmiddlewaretoken: '{{ csrf_token }}'});
-              },
-              stop: function(event,ui) {
-                  $('#slider-vertical-right').slider("value",0);
-                  $.post('/right/', {speed: 0, csrfmiddlewaretoken: '{{ csrf_token }}'});
-              }
-            });
-            $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
-          });
+        var leftSlider = document.getElementById('slider-vertical-left');
+        var rightSlider = document.getElementById('slider-vertical-right');
+
+        noUiSlider.create(leftSlider, {
+        	start: 0,
+		    orientation: "vertical",
+        	range: {
+        		'min': -100,
+        		'max': 100
+        	}
+        });
+
+        noUiSlider.create(rightSlider, {
+        	start: 0,
+		    orientation: "vertical",
+        	range: {
+        		'min': -100,
+        		'max': 100
+        	}
+        });
+
+        leftSlider.noUiSlider.on('end', function(){
+            leftSlider.noUiSlider.set(0);
+        });
+        leftSlider.noUiSlider.on('update', function(){
+            $.post('/left/', {speed: leftSlider.noUiSlider.get()});
+        });
+        rightSlider.noUiSlider.on('end', function(){
+            rightSlider.noUiSlider.set(0);
+        });
+        rightSlider.noUiSlider.on('update', function(){
+            $.post('/right/', {speed: rightSlider.noUiSlider.get()});
+        });
 
         </script>
         <script type="text/javascript">

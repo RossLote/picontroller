@@ -25,12 +25,14 @@
         $('#Stop').click(function(){
             $.get('/stop/')
         });
-        $('#left').submit(function(){
-            $.post('/left/', $(this).serialize())
+        $('#left').submit(function(e){
+            $.post('/left/', $(this).serialize());
+            e.preventDefault();
             return false;
         });
-        $('#right').submit(function(){
-            $.post('/right/', $(this).serialize())
+        $('#right').submit(function(e){
+            $.post('/right/', $(this).serialize());
+            e.preventDefault();
             return false;
         });
         </script>

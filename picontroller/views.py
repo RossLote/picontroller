@@ -14,7 +14,7 @@ BACKWARD_LEFT_PIN = None
 
 def turn_on(request):
     pi.setmode(pi.BCM)
-    for pin in pins:
+    for pin in PINS:
         pi.setup(pin, pi.OUT)
 
     FORWARD_RIGHT_PIN = pi.PWM(PINS[0], 100)

@@ -7,12 +7,12 @@
     <body>
         <button id="Start">Start</button>
         <button id="Stop">Stop</button>
-        <form id="Left" method="post">
+        <form id="Left">
             {% csrf_token %}
             <label>Left</label>
             <input type="text" name="speed">
         </form>
-        <form id="Right" method="post">
+        <form id="Right">
             {% csrf_token %}
             <label>Right</label>
             <input type="text" name="speed">
@@ -25,12 +25,12 @@
         $('#Stop').click(function(){
             $.get('/stop/')
         });
-        $('#left').submit(function(e){
+        $('#Left').submit(function(e){
             $.post('/left/', $(this).serialize());
             e.preventDefault();
             return false;
         });
-        $('#right').submit(function(e){
+        $('#Right').submit(function(e){
             $.post('/right/', $(this).serialize());
             e.preventDefault();
             return false;

@@ -30,7 +30,7 @@ def turn_on(request):
 
     ALIVE = True
 
-    return
+    return JsonResponse({})
 
 
 def turn_off(request):
@@ -47,6 +47,8 @@ def turn_off(request):
     pi.cleanup()
 
     ALIVE = False
+
+    return JsonResponse({})
 
 
 class RightWheelSpeed(FormView):
@@ -70,6 +72,8 @@ class RightWheelSpeed(FormView):
             FORWARD_RIGHT_PIN.ChangeDutyCycle(0)
             BACKWARD_RIGHT_PIN.ChangeDutyCycle(0)
 
+        return JsonResponse({})
+
 
 class LeftWheelSpeed(FormView):
     form_class = WheelSpeedForm
@@ -91,3 +95,5 @@ class LeftWheelSpeed(FormView):
         else:
             FORWARD_LEFT_PIN.ChangeDutyCycle(0)
             BACKWARD_LEFT_PIN.ChangeDutyCycle(0)
+
+        return JsonResponse({})

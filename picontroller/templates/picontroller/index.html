@@ -35,7 +35,7 @@
               },
               stop: function(event,ui) {
                   $('#slider-vertical-left').slider("value",0);
-                  $.post('/left/', $(this).serialize());
+                  $.post('/right/', {speed: ui.value, csrfmiddlewaretoken: '{{ csrf_token }}'});
               }
             });
             $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
@@ -53,7 +53,7 @@
               },
               stop: function(event,ui) {
                   $('#slider-vertical-right').slider("value",0);
-                  setzoomspeed(0);
+                  $.post('/right/', {speed: ui.value, csrfmiddlewaretoken: '{{ csrf_token }}'});
               }
             });
             $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );

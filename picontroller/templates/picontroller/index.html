@@ -31,11 +31,11 @@
               max: 100,
               value: 0,
               slide: function(event,ui){
-                $.post('/right/', {speed: ui.value, csrfmiddlewaretoken: '{{ csrf_token }}'});
+                $.post('/left/', {speed: ui.value, csrfmiddlewaretoken: '{{ csrf_token }}'});
               },
               stop: function(event,ui) {
                   $('#slider-vertical-left').slider("value",0);
-                  $.post('/right/', {speed: 0, csrfmiddlewaretoken: '{{ csrf_token }}'});
+                  $.post('/left/', {speed: 0, csrfmiddlewaretoken: '{{ csrf_token }}'});
               }
             });
             $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );

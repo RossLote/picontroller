@@ -9,12 +9,12 @@
         <form id="Left">
             {% csrf_token %}
             <label>Left</label>
-            <input type="text" name="speed">
+            <input type="number" max="100" min="-100" name="speed">
         </form>
         <form id="Right">
             {% csrf_token %}
             <label>Right</label>
-            <input type="text" name="speed">
+            <input type="number" max="100" min="-100" name="speed">
         </form>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script type="text/javascript">
